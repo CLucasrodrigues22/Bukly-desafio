@@ -14,9 +14,9 @@ test('it should check if reservations table exists', function () {
 /**
  * Add columns to your table:
  *
- * user_id : int not null - foreign key
+ * user_id : int not null
  * name: string not null
- * slug: string not null - unique
+ * slug: string not null
  * check_in: date not null
  * check_out: date not null
  * created_at: timestamp nullable
@@ -40,8 +40,8 @@ test('it should check if reservations table has columns', function () {
 /**
  * Add foreign key and indexes to your table:
  *
- * slug: unique
  * user_id: foreign key
+ * user_id and slug: unique
  * check_in and check_out: index
  */
 test('it should check if reservations table has foreign key and indexes correctly', function () {
@@ -51,7 +51,7 @@ test('it should check if reservations table has foreign key and indexes correctl
 
     expect($indexes)->toHaveCount(3);
     expect($indexes)->toContain('primary');
-    expect($indexes)->toContain('reservations_slug_unique');
+    expect($indexes)->toContain('reservations_user_id_name_unique');
     expect($indexes)->toContain('reservations_check_in_check_out_index');
 
     expect($foreignKeys)->toHaveCount(1);

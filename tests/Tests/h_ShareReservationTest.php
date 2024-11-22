@@ -1,6 +1,17 @@
 <?php
 
 /**
+ * Here you need to test the share reservation feature.
+ *
+ * See these files for reference:
+ * - app\Http\Controllers\Reservation\ShareController
+ * - app\Models\ReservationShare
+ * - database\factories\ReservationShareFactory
+ * - 000004_create_reservation_shares_table.php
+ * - routes/web.php
+ */
+
+/**
  * This test is to check if the share is expired.
  *
  * If the share is expired, it should return 404.

@@ -1,6 +1,14 @@
 # 📌 Bukly v2
 
-Description
+Here’s the translated text:
+
+This repository was created as part of a technical assessment for candidates. The objective is to evaluate your skills in Laravel's basic functionalities, with a focus on using automated tests.
+
+The application already includes several automated tests. Your task is to follow the provided instructions, implement the required functionalities, and ensure that all tests pass. It is important to follow the order of the tests, as functionalities developed in earlier steps may be used in subsequent tests.
+
+For the last file, h_ShareReservationTest, the approach is different: the functionality is already implemented, and your challenge will be to create the necessary tests to validate it.
+
+Below, we provide a guide to set up the application using Laravel Sail. If you prefer, you can also use PHP locally. The only dependencies required are PHP and Composer, as the database is configured to use SQLite.
 
 ### 📋 Requirements
 

@@ -4,7 +4,7 @@ Description
 
 ### 📋 Requirements
 
--   PHP v8.3
+-   PHP v8.2 or higher
 
 ### 🔧 How to install
 

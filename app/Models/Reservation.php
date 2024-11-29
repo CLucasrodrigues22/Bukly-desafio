@@ -20,6 +20,16 @@ class Reservation extends Model
         'check_out',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'check_in' => 'datetime',
+        'check_out' => 'datetime',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

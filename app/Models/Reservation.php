@@ -31,9 +31,9 @@ class Reservation extends Model
         'check_out' => 'datetime',
     ];
 
-    public static function booted(): void
+    protected static function booted(): void
     {
-        static::creating(function (self $reservation) {
+        static::created(function ($reservation) {
             $reservation->user->notify(new ReservationCreated($reservation));
         });
     }

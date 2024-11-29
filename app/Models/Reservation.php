@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ReservationCreated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,13 @@ class Reservation extends Model
         'check_in' => 'datetime',
         'check_out' => 'datetime',
     ];
+
+    public static function booted(): void
+    {
+        static::creating(function (self $reservation) {
+            $reservation->user->notify(new ReservationCreated($reservation));
+        });
+    }
 
     public function user(): BelongsTo
     {

@@ -46,4 +46,15 @@ class Reservation extends Model
     {
         $this->attributes['slug'] = Str::slug($this->name); // generate slug based in 'name'
     }
+
+    /**
+     * Get the slug attribute and format it.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getSlugAttribute(string $value): string
+    {
+        return Str::title($value); // return slug
+    }
 }

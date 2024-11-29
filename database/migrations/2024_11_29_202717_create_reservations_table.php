@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('check_out');
             $table->timestamps();
 
-            $table->unique(['user_id', 'slug']);
+            $table->unique(['user_id', 'name']);
             $table->index(['check_in', 'check_out']);
         });
     }

@@ -11,5 +11,6 @@ Route::prefix('/reservations')->group(function () {
     Route::post('/', [Reservation\ReservationController::class, 'store'])->name('reservations.store');
     Route::put('/{reservation}', [Reservation\ReservationController::class, 'update'])->name('reservations.update');
     Route::get('/{reservation}', [Reservation\ReservationController::class, 'show'])->name('reservations.show');
+    Route::delete('/{reservation}', [Reservation\ReservationController::class, 'destroy'])->name('reservations.destroy');
     Route::get('/{reservation_share}/{token}', Reservation\ShareController::class);
 });

@@ -72,4 +72,12 @@ class ReservationController extends Controller
             ],
         ]);
     }
+
+    public function destroy(Reservation $reservation)
+    {
+        $reservation->delete();
+
+        return redirect('/reservations')->with('success', 'Reservation deleted successfully.');
+    }
+
 }

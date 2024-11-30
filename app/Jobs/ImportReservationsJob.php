@@ -24,10 +24,9 @@ class ImportReservationsJob implements ShouldQueue
     public function __construct(int $userId = null)
     {
         $this->userId = $userId;
-
-        if ($this->userId) {
-            $this->user = User::find($this->userId);
-        }
+//        if ($this->userId) {
+//            $this->user = User::find($this->userId);
+//        }
     }
 
     /**
@@ -35,7 +34,7 @@ class ImportReservationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if ($this->user) {
+        if ($this->userId) {
             $response = Http::get("https://api.example.com/reservations/{$this->userId}");
         } else {
             $response = Http::get("https://api.example.com/reservations");

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Reservation;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\{Request, RedirectResponse};
 use Illuminate\Support\Str;
@@ -40,7 +41,6 @@ class ReservationController extends Controller
 
     public function update(Request $request, Reservation $reservation)
     {
-        // Validação dos dados de entrada
         $validated = $request->validate([
             'name' => [
                 'required',
@@ -52,17 +52,17 @@ class ReservationController extends Controller
             'check_out' => 'required|date_format:Y-m-d|after:check_in',
         ]);
 
-        // Atualiza a reserva com os dados validados
+        // updates the reservation with validated data
         $reservation->update($validated);
 
-        // Redireciona de volta com sucesso
         return redirect()->route('reservations.index')
             ->with('success', 'Reservation updated successfully.');
     }
 
     public function show(Reservation $reservation)
     {
-        // Retorna a reserva para o componente Inertia
+        Gate::authorize('view', $reservation);
+
         return Inertia::render('Reservation/Show', [
             'reservation' => [
                 'id' => $reservation->id,

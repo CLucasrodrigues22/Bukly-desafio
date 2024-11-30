@@ -19,7 +19,9 @@
 
 use App\Models\ReservationShare;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Inertia\Testing\AssertableInertia;
 
 test('it should return 404 when share is expired', function () {
     $expiredShare = ReservationShare::factory()->create([
@@ -55,6 +57,27 @@ test('it should return 403 when token is invalid', function () {
  *
  * If token is valid and share is not expired, it should render the share page.
  */
+
 test('it should render the share page', function () {
-    //
+    // arrange
+    $reservationShare = ReservationShare::factory()->create([
+        'token' => Hash::make('valid-token'),
+    ]);
+
+    // act
+    $response = $this->get(route('reservations.share', [
+        'reservation_share' => $reservationShare->id,
+        'token' => 'valid-token',
+    ]));
+
+    // assert
+    $response->assertOk();
+
+    $response->assertInertia(fn (AssertableInertia $page) =>
+    $page->component('Reservation/Share')
+    ->has('payload')
+    ->where('payload.name', $reservationShare->payload['name'])
+    );
 });
+
+

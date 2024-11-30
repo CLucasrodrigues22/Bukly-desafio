@@ -15,5 +15,5 @@ Route::prefix('/reservations')->group(function () {
     Route::delete('/{reservation}', [Reservation\ReservationController::class, 'destroy'])
         ->name('reservations.destroy')
         ->middleware(EnsureUserCanDeleteReservation::class);
-    Route::get('/{reservation_share}/{token}', Reservation\ShareController::class)->name('reservations.share');;
+    Route::get('/{reservation_share}/{token}', Reservation\ShareController::class)->name('reservations.share');
 });

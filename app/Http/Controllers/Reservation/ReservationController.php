@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reservation;
 
+use App\Events\ReservationUpdated;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Gate;
@@ -54,6 +55,8 @@ class ReservationController extends Controller
 
         // updates the reservation with validated data
         $reservation->update($validated);
+
+        event(new ReservationUpdated($reservation)); // Dispatch event
 
         return redirect()->route('reservations.index')
             ->with('success', 'Reservation updated successfully.');

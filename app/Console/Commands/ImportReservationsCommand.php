@@ -15,7 +15,6 @@ class ImportReservationsCommand extends Command
     {
         $userId = $this->option('user');
 
-        // Exibe a mensagem antes de validar o usuário
         $this->info('The reservations are being imported.');
 
         if ($userId) {
@@ -25,9 +24,9 @@ class ImportReservationsCommand extends Command
                 $this->error('The user does not exist on database.');
                 return 1;
             }
-            ImportReservationsJob::dispatch($userId); // Passando o userId correto
+            ImportReservationsJob::dispatch($userId);
         } else {
-            ImportReservationsJob::dispatch(); // Caso contrário, dispara sem userId
+            ImportReservationsJob::dispatch();
         }
 
         return 0;

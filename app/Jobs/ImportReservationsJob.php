@@ -22,7 +22,7 @@ class ImportReservationsJob implements ShouldQueue
      */
     public function __construct(int $user = null)
     {
-        $this->user = $user;  // Apenas armazene o user
+        $this->user = $user;
     }
 
     /**
@@ -30,12 +30,10 @@ class ImportReservationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // Carregue o usuário se necessário durante a execução do job
         if ($this->user) {
             $user = User::find($this->user);
 
             if (!$user) {
-                // Lidar com o caso em que o usuário não é encontrado
                 return;
             }
 

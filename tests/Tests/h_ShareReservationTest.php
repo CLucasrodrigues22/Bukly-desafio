@@ -19,6 +19,7 @@
 
 use App\Models\ReservationShare;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 test('it should return 404 when share is expired', function () {
     $expiredShare = ReservationShare::factory()->create([
@@ -37,7 +38,16 @@ test('it should return 404 when share is expired', function () {
  * If the token is invalid, it should return 403.
  */
 test('it should return 403 when token is invalid', function () {
-    //
+    $reservationShare = ReservationShare::factory()->create();
+
+    $invalidToken = Str::random(60);
+
+    $response = $this->get(route('reservations.share', [
+        'reservation_share' => $reservationShare->id,
+        'token' => $invalidToken
+    ]));
+
+    $response->assertStatus(403);
 });
 
 /**

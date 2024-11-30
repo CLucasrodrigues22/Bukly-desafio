@@ -16,8 +16,19 @@
  *
  * If the share is expired, it should return 404.
  */
+
+use App\Models\ReservationShare;
+use Carbon\Carbon;
+
 test('it should return 404 when share is expired', function () {
-    //
+    $expiredShare = ReservationShare::factory()->create([
+        'expires_at' => Carbon::now()->subDay(),
+    ]);
+
+    $token = 'example_token';
+
+    $this->get(route('reservations.share', ['reservation_share' => $expiredShare->id, 'token' => $token]))
+        ->assertNotFound(); // return 404
 });
 
 /**

@@ -2,29 +2,29 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class ImportReservationsCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:import-reservations-command';
+    protected $signature = 'app:import-reservations {--user=}';
+    protected $description = 'Import reservations from the API for a specific user';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public function handle(): int
     {
-        //
+        // receive user id
+        $userId = $this->option('user');
+
+        //validate if user exist
+        $user = User::find($userId);
+
+        if (!$user) {
+            $this->error('The user does not exist on database.');
+            return 1; // Código de erro
+        }
+
+        $this->info('User found, starting reservation import...');
+
+        return 0;
     }
 }

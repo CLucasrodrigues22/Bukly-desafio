@@ -25,9 +25,9 @@ class ImportReservationsCommand extends Command
                 $this->error('The user does not exist on database.');
                 return 1;
             }
-            ImportReservationsJob::dispatch($userId);
+            ImportReservationsJob::dispatch($userId); // Passando o userId correto
         } else {
-            ImportReservationsJob::dispatch();
+            ImportReservationsJob::dispatch(); // Caso contrário, dispara sem userId
         }
 
         return 0;

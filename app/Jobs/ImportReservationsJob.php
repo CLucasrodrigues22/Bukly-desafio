@@ -13,20 +13,16 @@ class ImportReservationsJob implements ShouldQueue
 {
     use Queueable;
 
-    public $userId;
     public $user;
 
     /**
      * Create a new job instance.
      *
-     * @param int|null $userId
+     * @param int|null $user
      */
-    public function __construct(int $userId = null)
+    public function __construct(int $user = null)
     {
-        $this->userId = $userId;
-//        if ($this->userId) {
-//            $this->user = User::find($this->userId);
-//        }
+        $this->user = $user;  // Apenas armazene o user
     }
 
     /**
@@ -34,8 +30,16 @@ class ImportReservationsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if ($this->userId) {
-            $response = Http::get("https://api.example.com/reservations/{$this->userId}");
+        // Carregue o usuário se necessário durante a execução do job
+        if ($this->user) {
+            $user = User::find($this->user);
+
+            if (!$user) {
+                // Lidar com o caso em que o usuário não é encontrado
+                return;
+            }
+
+            $response = Http::get("https://api.example.com/reservations/{$this->user}");
         } else {
             $response = Http::get("https://api.example.com/reservations");
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reservation;
 use App\Events\ReservationUpdated;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Rules\TwoWords;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\{Request, RedirectResponse};
@@ -26,7 +27,7 @@ class ReservationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|unique:reservations',
+            'name' => ['required', 'string', 'unique:reservations', new TwoWords()],
             'check_in' => 'required|date_format:Y-m-d|after_or_equal:today',
             'check_out' => 'required|date_format:Y-m-d|after:check_in',
         ]);

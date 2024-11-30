@@ -60,4 +60,16 @@ class ReservationController extends Controller
             ->with('success', 'Reservation updated successfully.');
     }
 
+    public function show(Reservation $reservation)
+    {
+        // Retorna a reserva para o componente Inertia
+        return Inertia::render('Reservation/Show', [
+            'reservation' => [
+                'id' => $reservation->id,
+                'name' => $reservation->name,
+                'check_in' => $reservation->check_in->toISOString(),
+                'check_out' => $reservation->check_out->toISOString(),
+            ],
+        ]);
+    }
 }

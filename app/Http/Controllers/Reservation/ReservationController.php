@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Reservation;
 
 use App\Events\ReservationUpdated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
 use App\Rules\TwoWords;
 use Illuminate\Support\Facades\Gate;
@@ -24,13 +25,9 @@ class ReservationController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ReservationRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'unique:reservations', new TwoWords()],
-            'check_in' => 'required|date_format:Y-m-d|after_or_equal:today',
-            'check_out' => 'required|date_format:Y-m-d|after:check_in',
-        ]);
+        $validated = $request->validated();
 
         // generate slug
         $slug = Str::slug($validated['name']);
@@ -41,18 +38,9 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index')->with('success', 'Reservation created successfully.');
     }
 
-    public function update(Request $request, Reservation $reservation)
+    public function update(ReservationRequest $request, Reservation $reservation)
     {
-        $validated = $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('reservations')->where('user_id', auth()->id())->ignore($reservation->id), // Ignora a reserva atual
-            ],
-            'check_in' => 'required|date_format:Y-m-d|after_or_equal:today',
-            'check_out' => 'required|date_format:Y-m-d|after:check_in',
-        ]);
+        $validated = $request->validated();
 
         // updates the reservation with validated data
         $reservation->update($validated);

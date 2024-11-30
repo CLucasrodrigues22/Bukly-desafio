@@ -1,7 +1,11 @@
 <script setup lang="ts">
 
+import { Head } from "@inertiajs/vue3";
 </script>
 
 <template>
-  <h1>Show</h1>
+  <Head title="Reservation" />
+  <div>
+    <h1>Show only reservation here</h1>
+  </div>
 </template>

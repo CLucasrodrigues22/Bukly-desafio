@@ -4,7 +4,7 @@ import { Head } from "@inertiajs/vue3";
 
 <template>
   <Head title="Reservation" />
-  <div>
+  <div class="border-gray-700">
     <h1>Reservation List here</h1>
   </div>
 </template>
